@@ -1,0 +1,42 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인 - 방정식 블록 코딩</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="login-container">
+    <h2>로그인</h2>
+    <form id="login-form">
+      <input type="email" id="email" placeholder="이메일" required>
+      <input type="password" id="password" placeholder="비밀번호" required>
+      <button type="submit">로그인</button>
+    </form>
+  </div>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      const response = await fetch('https://script.google.com/macros/s/1G2NS8dBKR4EU0SyxcGm54GrfMKYEq9qK4Tr_TuOSZgk/exec', {
+        method: 'POST',
+        body: JSON.stringify({ email, password })
+      });
+      const data = await response.json();
+      if(data.success) {
+        // 로그인 성공 시 토큰 및 사용자 정보를 로컬 스토리지에 저장하고, 메인 페이지로 이동
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('points', data.points);
+        localStorage.setItem('activity', data.activity);
+        window.location.href = 'index.html';
+      } else {
+        alert(data.message);
+      }
+    });
+  </script>
+</body>
+</html>

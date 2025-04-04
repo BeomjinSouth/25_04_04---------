@@ -12,18 +12,36 @@ document.addEventListener('DOMContentLoaded', function() {
   
     // 블록을 화면에 렌더링하는 함수
     function renderBlocks() {
-      equationContainer.innerHTML = '';
-      equationBlocks.forEach(block => {
-        let div = document.createElement('div');
-        div.classList.add('block');
-        div.textContent = block.text;
-        div.setAttribute('data-id', block.id);
-        div.draggable = true;
-        div.addEventListener('dragstart', dragStart);
-        equationContainer.appendChild(div);
-      });
-    }
-  
+        equationContainer.innerHTML = '';
+        equationBlocks.forEach(block => {
+          let div = document.createElement('div');
+          div.classList.add('block');
+          div.textContent = block.text;
+          div.setAttribute('data-id', block.id);
+          div.draggable = true;
+          div.addEventListener('dragstart', dragStart);
+      
+          // 블록 더블클릭 시 직접 수정할 수 있도록 함
+          div.addEventListener('dblclick', function() {
+            div.contentEditable = true;
+            div.focus();
+          });
+          // 수정 완료(포커스 잃을 때)하면 contentEditable 비활성화 및 내부 데이터 업데이트
+          div.addEventListener('blur', function() {
+            div.contentEditable = false;
+            // 변경된 텍스트를 equationBlocks 배열에 반영
+            const id = div.getAttribute('data-id');
+            const blockObj = equationBlocks.find(b => b.id == id);
+            if (blockObj) {
+              blockObj.text = div.textContent.trim();
+            }
+          });
+          
+          equationContainer.appendChild(div);
+        });
+      }
+
+      
     // 드래그 시작 이벤트 핸들러
     function dragStart(e) {
       e.dataTransfer.setData('text/plain', e.target.getAttribute('data-id'));
