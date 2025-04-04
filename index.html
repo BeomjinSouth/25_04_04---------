@@ -11,25 +11,59 @@
     <h1>방정식 블록 코딩 웹앱</h1>
   </header>
   <main>
-    <!-- 게임 진행 상황 대시보드 -->
-    <section id="game-dashboard">
-      <div id="level-info">현재 레벨: Lv1</div>
-      <div id="points">포인트: 0</div>
-      <button id="check-btn">점검</button>
-    </section>
-
-    <!-- 방정식 블록 영역 -->
-    <section id="equation-container">
-      <!-- 예: x – 3 = 3 문제의 각 항을 블록으로 표시 -->
-    </section>
-
-    <!-- 사용자 입력 및 변환 적용 영역 -->
-    <section id="input-area">
-      <input type="text" id="transformation-input" placeholder="예: -3 → +3">
-      <button id="apply-transformation">적용</button>
-    </section>
-  </main>
-  <script src="script.js"></script>
-</body>
-</html>
-
+    <!-- 삭제: #sidebar -->
+    <!-- 수정된 구조 -->
+    <!DOCTYPE html>
+    <html lang="ko">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>방정식 블록 코딩 웹앱</title>
+      <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+      <header>
+        <h1>방정식 블록 코딩 웹앱</h1>
+      </header>
+      <main>
+        <div id="main-content">
+          <!-- 게임 진행 상황 대시보드 -->
+          <section id="game-dashboard">
+            <div id="level-info">현재 레벨: Lv1</div>
+            <div id="points">포인트: 0</div>
+            <!-- 초기엔 힌트 버튼으로, 정답 시 '점검'으로 변경 -->
+            <button id="hint-btn">힌트</button>
+          </section>
+          
+          <!-- 단계 표시 (빨간 네모 스타일은 CSS로 적용) -->
+          <section id="step-display">
+            <h2>단계</h2>
+            <ul id="steps">
+              <li id="step1" class="active">1단계</li>
+              <li id="step2">2단계</li>
+              <li id="step3">3단계</li>
+            </ul>
+          </section>
+          
+          <!-- 방정식 블록 영역 -->
+          <section id="equation-container">
+            <!-- 예: x – 3 = 3 문제의 각 항을 블록으로 표시 -->
+          </section>
+    
+          <!-- 연산 선택 버튼 영역 -->
+          <section id="operation-area">
+            <button class="operation-btn" data-op="multiplyDivide">양변에 곱하기/나누기</button>
+            <button class="operation-btn" data-op="moveTerm">이항하기</button>
+            <button class="operation-btn" data-op="addSubtract">양변에 더하기/빼기</button>
+          </section>
+        </div>
+        
+        <!-- 적용 버튼은 별도로 배치 -->
+        <section id="apply-area">
+          <button id="apply-btn">적용</button>
+        </section>
+      </main>
+      <script src="script.js"></script>
+    </body>
+    </html>
+    
